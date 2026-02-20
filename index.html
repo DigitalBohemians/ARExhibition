@@ -5,23 +5,41 @@
     <title>ARExhibition</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script>
+      AFRAME.registerComponent('slideshow', {
+        init: function() {
+          const images = ['IMG_5410.jpeg','IMG_4431.jpg','IMG_4430.jpg','IMG_4429.jpg'];
+          let current = 0;
+          const el = this.el;
+          el.setAttribute('src', images[0]);
+          setInterval(function() {
+            current = (current + 1) % images.length;
+            el.setAttribute('src', images[current]);
+          }, 3000);
+        }
+      });
+    </script>
   </head>
   <body style="margin: 0; overflow: hidden;">
     <a-scene
-      mindar-image="imageTargetSrc: targets.mind;"
       embedded
-      color-space="sRGB"
-      renderer="colorManagement: true, physicallyCorrectLights"
+      arjs="sourceType: webcam; debugUIEnabled: false;"
+      renderer="logarithmicDepthBuffer: true;"
       vr-mode-ui="enabled: false"
-      device-orientation-permission-ui="enabled: false"
     >
-      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+      <a-assets>
+        <img id="img0" src="IMG_5410.jpeg">
+        <img id="img1" src="IMG_4431.jpg">
+        <img id="img2" src="IMG_4430.jpg">
+        <img id="img3" src="IMG_4429.jpg">
+      </a-assets>
 
-      <a-entity mindar-image-target="targetIndex: 0">
-        <a-box position="0 0 0" rotation="0 45 0" color="#c0392b" scale="0.2 0.2 0.2"></a-box>
-        <a-text value="ARExhibition" position="0 0.3 0" align="center" color="white" scale="0.3 0.3 0.3"></a-text>
-      </a-entity>
+      <a-marker type="pattern" url="pattern-IMG_4543.patt" smooth="true" smoothCount="5">
+        <a-image slideshow position="0 0.5 0" scale="1 1.5 1" rotation="-90 0 0"></a-image>
+      </a-marker>
+
+      <a-entity camera></a-entity>
     </a-scene>
   </body>
 </html>

@@ -34,7 +34,13 @@
         <img id="img2" src="IMG_4430.jpg" crossorigin="anonymous">
         <img id="img3" src="IMG_4429.jpg" crossorigin="anonymous">
       </a-assets>
-      <a-marker type="pattern" url="pattern-Digiclub.patt" smooth="true" smoothCount="10">
+      <a-marker
+  type="pattern"
+  url="pattern-Digiclub.patt"
+  smooth="true"
+  smoothCount="20"
+  smoothTolerance="0.01"
+  smoothThreshold="10">
         <a-image slideshow src="#img0" position="0 0 0.01" scale="3 3 3" rotation="-90 0 0"></a-image>
       </a-marker>
       <a-entity camera></a-entity>
